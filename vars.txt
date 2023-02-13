@@ -23,7 +23,6 @@ no_of_samples_3_prime
 x_chem_version_2_ma
 no_of_samples_multiome
 x_chem_version_sp
-
 standard_sample_id_2
 inflam_status_2
 other_inflam_status_2
@@ -43,11 +42,9 @@ viablity_after_dead_nuclei_2
 no_nuclei_2
 targ_nuclei_2
 notes_sample_multi_2
-
 sample_information_complete
 cdna_date
 index_kit
-
 library_id_lp_2
 cdna_conc_2
 cdna_conc_dilution_2
@@ -59,10 +56,8 @@ average_bp_2
 final_lib_conc_2
 final_library_dilution_2
 notes_2
-
 pre_amp_date
 index_kit_scm
-
 library_id_gex_2
 library_id_atac_2
 atac_pcr_cycles_2
@@ -75,7 +70,6 @@ gex_index_used_2
 gex_lib_conc_2
 gex_lib_dilution_2
 notes_lp_atac_2
-
 library_prep_complete
 date_sent
 dual_single_index
@@ -87,12 +81,10 @@ novaseq_2000
 lanes_full_flow_cell
 number_of_lanes
 no_samples_di
-
 library_id_seq_1
 index_1
 number_of_reads_1
 reads_per_cell_1
-
 sequencing_complete
 est_no_cells
 mean_reads_per_cell
@@ -114,4 +106,3 @@ fraction_reads_in_cells
 total_genes_detected
 median_umi_counts_per_cell
 sequencing_qc_complete
-

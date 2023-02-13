@@ -46,3 +46,7 @@ gex_lib_dilution
 notes_lp_atac
 
 - can I exclude "type of experiement"
+- library_id_lp is 3' cyto
+- update data dictionary notes for library_id_gex to specify nuclear
+- update data dictionary notes for library_id_lp to specify cyto
+- add project owner legacy id
