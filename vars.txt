@@ -45,6 +45,7 @@ notes_sample_multi_2
 sample_information_complete
 cdna_date
 index_kit
+
 library_id_lp_2
 cdna_conc_2
 cdna_conc_dilution_2
@@ -56,8 +57,10 @@ average_bp_2
 final_lib_conc_2
 final_library_dilution_2
 notes_2
+
 pre_amp_date
 index_kit_scm
+
 library_id_gex_2
 library_id_atac_2
 atac_pcr_cycles_2
@@ -70,6 +73,7 @@ gex_index_used_2
 gex_lib_conc_2
 gex_lib_dilution_2
 notes_lp_atac_2
+
 library_prep_complete
 date_sent
 dual_single_index
