@@ -49,11 +49,12 @@ index_kit
 library_id_lp_2
 cdna_conc_2
 cdna_conc_dilution_2
-total_cdna_yield_2
-input_cdna_2
 pcr_cycles_2
 index_used_2
 average_bp_2
+
+total_cdna_yield_2
+input_cdna_2
 final_lib_conc_2
 final_library_dilution_2
 notes_2
