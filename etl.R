@@ -87,6 +87,11 @@ for (i in 1:lib_id_count) {
 
   # append rows to final table
   if (exists("final_table")) {
+      print(colnames(atac))
+      print(length(atac))
+      print(length(nuc))
+      print(length(cyto))
+      print(colnames(cyto))
     final_table <- rbind(
       final_table,
       cyto,
@@ -94,6 +99,11 @@ for (i in 1:lib_id_count) {
       atac
     )
   } else {
+      print(colnames(atac))
+      print(length(atac))
+      print(length(nuc))
+      print(length(cyto))
+      print(colnames(cyto))
     final_table <- rbind(
       cyto,
       nuc,
