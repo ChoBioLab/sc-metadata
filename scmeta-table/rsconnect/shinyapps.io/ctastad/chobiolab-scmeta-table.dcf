@@ -1,0 +1,14 @@
+name: chobiolab-scmeta-table
+title: chobiolab-scmeta-table
+username:
+account: ctastad
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 8555598
+bundleId: 6953019
+url: https://ctastad.shinyapps.io/chobiolab-scmeta-table/
+when: 1678730711.96948
+lastSyncTime: 1678730711.96949
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .app.R.swp
