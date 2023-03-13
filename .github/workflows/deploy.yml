@@ -31,6 +31,6 @@ jobs:
       - name: Deploy Shiny app
         run: |
           library(rsconnect)
-          setAccountInfo(name='ctastad', token=${{ secrets.SHINYAPPSIO_TOKEN })}
+          setAccountInfo(name='ctastad', token=${{ secrets.SHINYAPPSIO_TOKEN }})
           deployApp(appName = ' chobiolab-scmeta-table ', appDir = 'scmeta-table/app.R')
         shell: Rscript {0}
