@@ -20,7 +20,7 @@ jobs:
           r-version: ${{ matrix.r-version }}
       - name: Install dependencies
         run: |
-          install.packages(c("httr", "DT", "rsconnect", "tidyverse"))
+          install.packages(c("httr", "DT", "rsconnect", "tidyverse", "shiny"))
         shell: Rscript {0}
       - name: API pull
         env:
