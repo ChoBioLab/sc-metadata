@@ -202,4 +202,4 @@ final_table <- final_table %>%
     !(lib_id == "NA")
   )
 
-write.csv(final_table, "output.csv", row.names = F)
+write.csv(final_table, "scmeta-table/output.csv", row.names = F)
