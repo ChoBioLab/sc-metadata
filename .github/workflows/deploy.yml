@@ -5,7 +5,6 @@ on:
     branches:
       - main
 
-
 jobs:
   build:
     runs-on: macos-latest
@@ -26,7 +25,7 @@ jobs:
       - name: API pull
         env:
           API_KEY: ${{ secrets.API_KEY }}
-        run: api-get
+        run: ./api-get
       - name: ETL script
         run:  etl.R
         shell: Rscript {0}
