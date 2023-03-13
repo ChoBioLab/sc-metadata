@@ -1,8 +1,10 @@
 name: Deploy Shiny app
 
 on:
-  schedule:
-    - "* * * * *"
+  push:
+    branches:
+      - main
+
 
 jobs:
   deploy:
