@@ -1,0 +1,37 @@
+name: Deploy Shiny app
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: macOS-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install R
+        uses: r-lib/actions/setup-r@v1
+
+      - name: Install required packages
+        run: |
+          Rscript -e 'install.packages(c("httr", "dplyr", "DT", "rsconnect"))'
+
+      - name: API pull
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: Rscript api_pull.R
+
+      - name: ETL script
+        run: Rscript etl_script.R
+
+      - name: Deploy Shiny app
+        env:
+          SHINYAPPSIO_TOKEN: ${{ secrets.SHINYAPPSIO_TOKEN }}
+        run: |
+          library(rsconnect)
+          setAccountInfo(name='YOUR_SHINYAPPSIO_ACCOUNT_NAME', token='${SHINYAPPSIO_TOKEN}')
+          deployApp(appName = 'YOUR_SHINYAPP_NAME', appDir = 'path/to/your/shiny/app')
