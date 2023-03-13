@@ -3,7 +3,7 @@ library(DT)
 
 # Define UI for app
 ui <- fluidPage(
-  titlePanel("DT Table with Column Filters and Download Button"),
+  titlePanel("TEST"),
   mainPanel(
     DT::dataTableOutput("mytable"),
     downloadButton("download_csv", "Download CSV")
