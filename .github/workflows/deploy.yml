@@ -11,10 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-          r-version: ['4.2.1']
+          r-version: '4.2.1'
 
     steps:
-            steps:
       - uses: actions/checkout@v3
       - name: Set up R ${{ matrix.r-version }}
         uses: r-lib/actions/setup-r@f57f1301a053485946083d7a45022b278929a78a
