@@ -1,12 +1,15 @@
 library(tidyverse)
 
 raw <- read.csv("input.csv")
+
+# Replace any NA values with empty strings
 raw[is.na(raw)] <- ""
 raw <- as_tibble(raw)
 
+# Select columns from raw tibble that do not include lib_id_seq_1:length(raw)
 lib_prep_raw <- select(raw, !c(lib_id_seq_1:length(raw)))
 
-# establish length of standard ID loop
+# Determine number of lib_id_cyto_gex columns to process
 lib_id_count <- length(
   select(
     raw,
@@ -14,15 +17,18 @@ lib_id_count <- length(
   )
 )
 
-# build lib ID table
+# Loop through each lib_id column and extract relevant data
 for (i in 1:lib_id_count) {
+  # Select data that is specific to the current lib_id column being processed
   tmp <- select(
     lib_prep_raw,
     !matches("[a-z]_[0-9]$") |
       matches(paste0("[a-z]_", i, "$"))
   ) %>%
+    # Filter by redcap_event_name
     filter(redcap_event_name == "Forms (Arm 1: Sample Info and Library Prep)")
 
+  # Rename columns to remove lib_id_cyto_gex suffix
   colnames(tmp) <- gsub(
     pattern = paste0("_", i, "$"),
     replacement = "",
@@ -108,7 +114,10 @@ for (i in 1:lib_id_count) {
   }
 }
 
+# Replace empty strings with NA in final_table
 is.na(final_table) <- final_table == ""
+
+# Rearrange columns in final_table
 final_table <- final_table %>%
   relocate(
     c(
