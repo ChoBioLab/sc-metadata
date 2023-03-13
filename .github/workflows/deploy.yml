@@ -32,5 +32,5 @@ jobs:
         run: |
           library(rsconnect)
           setAccountInfo(name='ctastad', token='${{ secrets.SHINYAPPSIO_TOKEN }}', secret='${{ secrets.SHINYAPPSIO_SECRET }}')
-          deployApp(appName = ' chobiolab-scmeta-table ', appDir = 'scmeta-table/app.R')
+          deployApp(appName = ' chobiolab-scmeta-table ', appDir = 'scmeta-table')
         shell: Rscript {0}
