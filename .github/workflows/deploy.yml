@@ -29,10 +29,8 @@ jobs:
       - name: ETL script
         run:  Rscript etl.R
       - name: Deploy Shiny app
-        env:
-          SHINYAPPSIO_TOKEN: ${{ secrets.SHINYAPPSIO_TOKEN }}
         run: |
           library(rsconnect)
-          setAccountInfo(name='ctastad', token='${SHINYAPPSIO_TOKEN}')
+          setAccountInfo(name='ctastad', token=${{ secrets.SHINYAPPSIO_TOKEN })}
           deployApp(appName = ' chobiolab-scmeta-table ', appDir = 'scmeta-table/app.R')
         shell: Rscript {0}
