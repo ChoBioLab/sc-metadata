@@ -2,7 +2,7 @@ name: Deploy Shiny app
 
 on:
   schedule:
-    - "0 0 * * *"
+    - "* * * * *"
 
 jobs:
   deploy:
