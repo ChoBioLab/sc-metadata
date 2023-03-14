@@ -5,12 +5,8 @@ library(DT)
 ui <- fluidPage(
   titlePanel("Cho Lab SC Metadata"),
   mainPanel(
-    tabsetPanel(
-      type = "tabs",
-      br(),
-      tabPanel("samples", DT::dataTableOutput("sample_table")),
-      tabPanel("fixed", DT::dataTableOutput("fixed_table"))
-    )
+    DT::dataTableOutput("samples"),
+    downloadButton("download_csv", "Download CSV")
   )
 )
 
@@ -23,30 +19,10 @@ server <- function(input, output) {
     as.factor
   )
 
-  fixed_table <- read.csv("fixed-out.csv")
-  fixed_table[sapply(fixed_table, is.character)] <- lapply(
-    fixed_table[sapply(fixed_table, is.character)],
-    as.factor
-  )
-
   # Create DT table with column filters
-  output$sample_table <- DT::renderDataTable(
+  output$samples <- DT::renderDataTable(
     DT::datatable(
       sample_table,
-      filter = list(
-        position = "top",
-        clear = FALSE
-      ),
-      options = list(
-        pageLength = 30,
-        autoWidth = TRUE
-      )
-    )
-  )
-
-  output$fixed_table <- DT::renderDataTable(
-    DT::datatable(
-      fixed_table,
       filter = list(
         position = "top",
         clear = FALSE
@@ -61,19 +37,10 @@ server <- function(input, output) {
   # Download CSV file
   output$download_csv <- downloadHandler(
     filename = function() {
-      paste(
-        "sc-metadata",
-        Sys.Date(),
-        ".csv",
-        sep = ""
-      )
+      paste("sc-metadata-", Sys.Date(), ".csv", sep = "")
     },
     content = function(file) {
-      write.csv(
-        a,
-        file,
-        row.names = FALSE
-      )
+      write.csv(sample_table, file, row.names = FALSE)
     }
   )
 }
