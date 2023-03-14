@@ -5,24 +5,69 @@ library(DT)
 ui <- fluidPage(
   titlePanel("Cho Lab SC Metadata"),
   mainPanel(
-    DT::dataTableOutput("mytable"),
-    downloadButton("download_csv", "Download CSV")
+    tabsetPanel(
+      type = "tabs",
+      br(),
+      tabPanel("samples", DT::dataTableOutput("sample_table")),
+      tabPanel("sequencing", DT::dataTableOutput("sequencing_table")),
+      tabPanel("fixed", DT::dataTableOutput("fixed_table"))
+    )
   )
 )
 
 # Define server logic
 server <- function(input, output) {
   # Define data for table
-  a <- read.csv("output.csv")
-  a[sapply(a, is.character)] <- lapply(
-    a[sapply(a, is.character)],
+  sample_table <- read.csv("samples-out.csv")
+  sample_table[sapply(sample_table, is.character)] <- lapply(
+    sample_table[sapply(sample_table, is.character)],
+    as.factor
+  )
+
+  fixed_table <- read.csv("fixed-out.csv")
+  fixed_table[sapply(fixed_table, is.character)] <- lapply(
+    fixed_table[sapply(fixed_table, is.character)],
+    as.factor
+  )
+
+  sequencing_table <- read.csv("sequencing-out.csv")
+  sequencing_table[sapply(sequencing_table, is.character)] <- lapply(
+    sequencing_table[sapply(sequencing_table, is.character)],
     as.factor
   )
 
   # Create DT table with column filters
-  output$mytable <- DT::renderDataTable(
+  output$sample_table <- DT::renderDataTable(
     DT::datatable(
-      a,
+      sample_table,
+      filter = list(
+        position = "top",
+        clear = FALSE
+      ),
+      options = list(
+        pageLength = 30,
+        autoWidth = TRUE
+      )
+    )
+  )
+
+  output$sequencing_table <- DT::renderDataTable(
+    DT::datatable(
+      sequencing_table,
+      filter = list(
+        position = "top",
+        clear = FALSE
+      ),
+      options = list(
+        pageLength = 30,
+        autoWidth = TRUE
+      )
+    )
+  )
+
+  output$fixed_table <- DT::renderDataTable(
+    DT::datatable(
+      fixed_table,
       filter = list(
         position = "top",
         clear = FALSE
@@ -37,10 +82,19 @@ server <- function(input, output) {
   # Download CSV file
   output$download_csv <- downloadHandler(
     filename = function() {
-      paste("sc-metadata", Sys.Date(), ".csv", sep = "")
+      paste(
+        "sc-metadata",
+        Sys.Date(),
+        ".csv",
+        sep = ""
+      )
     },
     content = function(file) {
-      write.csv(a, file, row.names = FALSE)
+      write.csv(
+        a,
+        file,
+        row.names = FALSE
+      )
     }
   )
 }

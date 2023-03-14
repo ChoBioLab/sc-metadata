@@ -26,8 +26,10 @@ jobs:
         env:
           API_KEY: ${{ secrets.API_KEY }}
         run: ./api-get
-      - name: ETL script
-        run:  Rscript etl.R
+      - name: Transform scripts
+        run:  Rscript transform/samples.R
+        run:  Rscript transform/sequencing.R
+        run:  Rscript transform/fixed.R
       - name: Deploy Shiny app
         run: |
           library(rsconnect)

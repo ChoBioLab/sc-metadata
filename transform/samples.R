@@ -47,7 +47,7 @@ for (i in 1:lib_id_count) {
     )
   ) %>%
     mutate(
-      lib_type = "ctyo-gex"
+      lib_type = "cyto-gex"
     ) %>%
     rename_with(., ~ gsub(
       pattern = "cyto_gex_|_cyto_gex",
@@ -202,4 +202,4 @@ final_table <- final_table %>%
     !(lib_id == "NA")
   )
 
-write.csv(final_table, "scmeta-table/output.csv", row.names = F)
+write.csv(final_table, "scmeta-table/samples-out.csv", row.names = F)
