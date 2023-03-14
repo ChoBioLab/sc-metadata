@@ -27,9 +27,7 @@ jobs:
           API_KEY: ${{ secrets.API_KEY }}
         run: ./api-get
       - name: Transform scripts
-        run:  Rscript transform/samples.R
-        run:  Rscript transform/sequencing.R
-        run:  Rscript transform/fixed.R
+        run:  Rscript transform.R
       - name: Deploy Shiny app
         run: |
           library(rsconnect)

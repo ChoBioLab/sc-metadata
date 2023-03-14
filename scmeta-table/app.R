@@ -9,7 +9,6 @@ ui <- fluidPage(
       type = "tabs",
       br(),
       tabPanel("samples", DT::dataTableOutput("sample_table")),
-      tabPanel("sequencing", DT::dataTableOutput("sequencing_table")),
       tabPanel("fixed", DT::dataTableOutput("fixed_table"))
     )
   )
@@ -30,30 +29,10 @@ server <- function(input, output) {
     as.factor
   )
 
-  sequencing_table <- read.csv("sequencing-out.csv")
-  sequencing_table[sapply(sequencing_table, is.character)] <- lapply(
-    sequencing_table[sapply(sequencing_table, is.character)],
-    as.factor
-  )
-
   # Create DT table with column filters
   output$sample_table <- DT::renderDataTable(
     DT::datatable(
       sample_table,
-      filter = list(
-        position = "top",
-        clear = FALSE
-      ),
-      options = list(
-        pageLength = 30,
-        autoWidth = TRUE
-      )
-    )
-  )
-
-  output$sequencing_table <- DT::renderDataTable(
-    DT::datatable(
-      sequencing_table,
       filter = list(
         position = "top",
         clear = FALSE
