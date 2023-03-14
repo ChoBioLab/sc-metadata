@@ -13,12 +13,16 @@ ui <- fluidPage(
 # Define server logic
 server <- function(input, output) {
   # Define data for table
-  mydata <- read.csv("output.csv")
+  a <- read.csv("output.csv")
+  a[sapply(a, is.character)] <- lapply(
+    a[sapply(a, is.character)],
+    as.factor
+  )
 
   # Create DT table with column filters
   output$mytable <- DT::renderDataTable(
     DT::datatable(
-      mydata,
+      a,
       filter = list(
         position = "top",
         clear = FALSE
@@ -33,10 +37,10 @@ server <- function(input, output) {
   # Download CSV file
   output$download_csv <- downloadHandler(
     filename = function() {
-      paste("mydata", Sys.Date(), ".csv", sep = "")
+      paste("sc-metadata", Sys.Date(), ".csv", sep = "")
     },
     content = function(file) {
-      write.csv(mydata, file, row.names = FALSE)
+      write.csv(a, file, row.names = FALSE)
     }
   )
 }
