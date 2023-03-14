@@ -3,7 +3,7 @@ library(DT)
 
 # Define UI for app
 ui <- fluidPage(
-  titlePanel("TEST"),
+  titlePanel("Cho Lab SC Metadata"),
   mainPanel(
     DT::dataTableOutput("mytable"),
     downloadButton("download_csv", "Download CSV")
@@ -12,21 +12,24 @@ ui <- fluidPage(
 
 # Define server logic
 server <- function(input, output) {
-  
   # Define data for table
-  mydata <- read.csv('output.csv')
-  
+  mydata <- read.csv("output.csv")
+
   # Create DT table with column filters
   output$mytable <- DT::renderDataTable(
-    DT::datatable(mydata, 
-                  filter = 'top',
-                  options = list(pageLength = 30,
-                                 autoWidth = TRUE, 
-                                 columnDefs = list(list(targets = "_all", className = "dt-center")),
-                                 dom = 'Bfrtip', 
-                                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print')))
+    DT::datatable(
+      mydata,
+      filter = list(
+        position = "top",
+        clear = FALSE
+      ),
+      options = list(
+        pageLength = 30,
+        autoWidth = TRUE
+      )
+    )
   )
-  
+
   # Download CSV file
   output$download_csv <- downloadHandler(
     filename = function() {
@@ -40,4 +43,3 @@ server <- function(input, output) {
 
 # Run the app
 shinyApp(ui = ui, server = server)
-
