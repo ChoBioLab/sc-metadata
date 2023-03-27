@@ -11,8 +11,10 @@ arm1_raw <- select(
   raw,
   !c(lib_id_seq_1:length(raw))
 )
+
 arm2_raw <- select(
   raw,
+  record_id,
   redcap_event_name,
   sequencing_center,
   c(lib_id_seq_1:length(raw))
@@ -130,18 +132,11 @@ for (i in 1:arm1_rep_count) {
   }
 }
 
-# Replace empty strings with NA in final_table
-is.na(final_table) <- final_table == ""
-
-final_table <- final_table %>%
-  select(!c(redcap_event_name)) %>%
-  filter(!(lib_id == "NA")) %>%
-  rename(index = index_used)
-
 for (i in 1:arm2_rep_count) {
   # Select data that is specific to the current lib_id column being processed
   tmp <- select(
     arm2_raw,
+    record_id,
     redcap_event_name,
     sequencing_center,
     matches(paste0("[a-z]_", i, "$")),
@@ -170,12 +165,27 @@ for (i in 1:arm2_rep_count) {
 }
 
 # Replace empty strings with NA in final_table
+is.na(final_table) <- final_table == ""
+
+final_table <- final_table %>%
+  select(!c(redcap_event_name)) %>%
+  filter(!(lib_id == "NA")) %>%
+  rename(c(
+    index = index_used,
+    subject_id = record_id,
+    standard_id = standard_sample_id
+  ))
+
+# Replace empty strings with NA in seq_table
 is.na(seq_table) <- seq_table == ""
 
 seq_table <- seq_table %>%
   select(!c(redcap_event_name)) %>%
-  rename(lib_id = lib_id_seq) %>%
-  filter(!(lib_id == "NA"))
+  filter(!(lib_id_seq == "NA")) %>%
+  rename(c(
+    lib_id = lib_id_seq,
+    data_release = record_id
+  ))
 
 final_table <- full_join(
   seq_table,
@@ -185,21 +195,17 @@ final_table <- full_join(
 ) %>%
   select(-ends_with(".y"))
 
-#  mutate(index = coalesce(index.x, index.y)) %>%
-#  select(-index.x, -index.y) %>%
-#  mutate(sequencing_center = coalesce(sequencing_center.x, sequencing_center.y)) %>%
-#  select(-sequencing_center.x, -sequencing_center.y)
-
 final_table <- final_table %>%
   relocate(
     c(
-      record_id,
-      grid,
-      standard_sample_id,
+      standard_id,
       lib_id,
       lib_type,
+      grid,
+      subject_id,
       patient_id,
       project_owner_id,
+      data_release,
       organism,
       project,
       other_project,
